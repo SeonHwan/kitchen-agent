@@ -1,0 +1,16 @@
+# docker compose up --build 로 API를 띄운다. 키(.env)와 임베딩 모델 캐시는 호스트 것을 쓴다.
+services:
+  api:
+    build:
+      context: .
+      additional_contexts:
+        mcp: ${KITCHEN_MCP_DIR:-../kitchen-mcp}   # kitchen-mcp 저장소 위치(기본: 이 저장소 옆)
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      HF_HUB_OFFLINE: "1"   # 모델 캐시가 비어 있으면 내려받으려 멈추지 않고 바로 실패한다
+    volumes:
+      # 임베딩 모델 캐시(2GB)를 호스트 것으로 읽기 전용으로 붙인다. 서버가 읽는 곳은 DATA_DIR/fastembed_cache
+      - ${KITCHEN_MCP_DIR:-../kitchen-mcp}/data/fastembed_cache:/opt/kitchen-mcp/data/fastembed_cache:ro
+    restart: unless-stopped

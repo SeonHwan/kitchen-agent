@@ -1,0 +1,23 @@
+[project]
+name = "kitchen-agent"
+version = "0.1.0"
+description = "LangGraph 멀티 에이전트와 MCP 클라이언트로 푸는 주방 질의응답"
+authors = [
+    { name = "kiseh", email = "duwkdfh@naver.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "langgraph==1.2.15",
+    "langchain-core==1.6.10",
+    "langchain-anthropic==1.7.6",
+    "mcp==2.3.0",
+    "python-dotenv==1.2.4",
+    "ragas==0.4.3",
+    "langchain-community==0.3.31",
+    "fastapi==0.162.0",
+    "uvicorn==0.54.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
